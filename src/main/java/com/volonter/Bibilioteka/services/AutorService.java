@@ -29,4 +29,12 @@ public class AutorService {
     public List<Autor> prikazAutoraPoImenu(String ime){
         return StreamSupport.stream(autorRepo.findAutorsByImeContains(ime).spliterator(),true).collect(Collectors.toList());
     }
+
+    public Autor izmeniAutora(Autor autor){
+        return autorRepo.save(autor);
+    }
+
+    public void izbrisiAutora(Autor autor){
+        autorRepo.delete(autor);
+    }
 }

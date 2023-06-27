@@ -28,4 +28,10 @@ public class AutorController {
     public boolean kreirajNovog(@RequestBody Autor autor){
         return autorService.kreirajAutora(autor);
     }
+
+    @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Autor izmeniAutora(@RequestBody Autor autor){ return autorService.izmeniAutora(autor); }
+
+    @DeleteMapping
+    public void izbrisiAutora(@RequestBody Autor autor){ autorService.izbrisiAutora(autor); }
 }

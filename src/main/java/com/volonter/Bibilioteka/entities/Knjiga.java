@@ -51,7 +51,7 @@ public class Knjiga {
     @JoinColumn(name = "polica_polica_id",nullable = false)
     private Polica polica;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "knjigaAutora",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<AutoriKnjiga> autori;
 

@@ -25,4 +25,7 @@ public class KnjigaController {
 
     @PostMapping(path = "nova",consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean novaKnjiga(@RequestBody Knjiga knjiga){return knjigaService.kreirajKnjigu(knjiga);}
+
+    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean izbrisiKnjigu(@RequestBody Knjiga knjiga){return knjigaService.izbrisiKnjigu(knjiga);}
 }

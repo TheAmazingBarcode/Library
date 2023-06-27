@@ -22,4 +22,12 @@ public class KorisnikService {
         return korisnici.existsKorisnikByUsernameAndPassword(korisnik.getUsername(), korisnik.getPassword());
     }
 
+    public Korisnik izmeniKorisnika(Korisnik korisnik){
+        return korisnici.save(korisnik);
+    }
+
+    public void izbrisiKorisnika(Korisnik korisnik){
+        korisnici.delete(korisnik);
+    }
+
 }

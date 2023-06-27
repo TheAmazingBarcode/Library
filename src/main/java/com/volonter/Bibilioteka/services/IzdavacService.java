@@ -35,7 +35,9 @@ public class IzdavacService {
         return izdavacRepo.save(izdavac);
     }
 
-    public void izbrisiIzdavaca(Izdavac izdavac){
+
+    //Opasno brisati izdavaca, moguce samo ukoliko nema knjige koje pripadaju datom izdavacu
+/*    public void izbrisiIzdavaca(Izdavac izdavac){
         izdavacRepo.delete(izdavac);
-    }
+    }*/
 }

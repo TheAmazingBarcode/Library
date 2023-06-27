@@ -35,7 +35,9 @@ public class KategorijaService {
         return kategorijaRepo.save(kategorija);
     }
 
-    public void izbrisiKategoriju(Kategorija kategorija){
-        kategorijaRepo.delete(kategorija);
-    }
+
+    ///Opasno brisati, treba uvesti proveru da li je moguce izbrisati kategoriju, moguce je samo ukoliko ne postoje knjige koje pripadaju datoj kategoriji
+//    public void izbrisiKategoriju(Kategorija kategorija){
+//        kategorijaRepo.delete(kategorija);
+//    }
 }

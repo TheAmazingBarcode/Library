@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface AutoriKnjigaRepo extends CrudRepository<AutoriKnjiga,Integer> {
     Iterable<AutoriKnjiga> findAutoriKnjigaByKnjigaAutora(Knjiga knjiga);
+
+    void deleteAutoriKnjigaByKnjigaAutora(Knjiga knjiga);
 }

@@ -1,6 +1,8 @@
 package com.volonter.Bibilioteka.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -26,7 +28,7 @@ public class Izdavac {
     @Column(name = "godina_osnivanja")
     private Integer godinaOsnivanja;
 
-    @JsonIgnore
+    @JsonManagedReference(value = "izdavac-knjige")
     @OneToMany(mappedBy = "izdavac",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Knjiga> knjige;
 

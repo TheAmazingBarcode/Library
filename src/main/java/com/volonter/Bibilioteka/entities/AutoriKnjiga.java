@@ -15,7 +15,7 @@ public class AutoriKnjiga {
     private Integer id;
 
     @ManyToOne(optional = false)
-    @JsonBackReference
+    @JsonBackReference(value = "autori-knjige")
     @JoinColumn(name = "knjiga_knjiga_id")
     private Knjiga knjigaAutora;
 

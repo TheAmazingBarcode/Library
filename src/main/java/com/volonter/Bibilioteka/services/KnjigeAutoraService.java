@@ -34,9 +34,8 @@ public class KnjigeAutoraService {
 
     public void zapisiAutoreKnjiga(Iterable<AutoriKnjiga> autoriKnjiga){autoriKnjigaRepo.saveAll(autoriKnjiga);}
 
-  //Nadograditi
-//    public void izbrisiVezu(Knjiga){
-//        autoriKnjigaRepo.delete();
-//    }
+    public void izbrisiVezu(Knjiga knjiga){
+        autoriKnjigaRepo.deleteAutoriKnjigaByKnjigaAutora(knjiga);
+    }
 
 }

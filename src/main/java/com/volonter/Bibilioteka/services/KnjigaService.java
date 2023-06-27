@@ -6,9 +6,11 @@ import com.volonter.Bibilioteka.entities.Knjiga;
 import com.volonter.Bibilioteka.repositories.AutorRepo;
 import com.volonter.Bibilioteka.repositories.AutoriKnjigaRepo;
 import com.volonter.Bibilioteka.repositories.KnjigaRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,8 +56,17 @@ public class KnjigaService {
         return knjigaRepo.save(knjiga);
     }
 
-    //Resiti kasnije
-//    public void izbrisiKnjigu(Knjiga knjiga){
-//        knjigeAutoraService
-//    }
+
+    @Transactional
+    public boolean izbrisiKnjigu(Knjiga knjiga) {
+        try {
+            knjigeAutoraService.izbrisiVezu(knjiga);
+            knjigaRepo.delete(knjiga);
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

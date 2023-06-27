@@ -22,7 +22,7 @@ public class Autor {
     private String prezime;
 
     @JsonIgnore
-    @JsonManagedReference
+    @JsonManagedReference("knjige-autora")
     @OneToMany(mappedBy = "autorKnjige",fetch = FetchType.LAZY)
     private Set<AutoriKnjiga> knjige;
 

@@ -30,4 +30,12 @@ public class KategorijaService {
     public List<Kategorija> prikazKategorijePoNazivu(String naziv){
         return StreamSupport.stream(kategorijaRepo.findKategorijasByNazivContains(naziv).spliterator(),true).collect(Collectors.toList());
     }
+
+    public Kategorija izmeniKategoriju(Kategorija kategorija){
+        return kategorijaRepo.save(kategorija);
+    }
+
+    public void izbrisiKategoriju(Kategorija kategorija){
+        kategorijaRepo.delete(kategorija);
+    }
 }

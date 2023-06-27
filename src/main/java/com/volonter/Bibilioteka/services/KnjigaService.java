@@ -49,4 +49,13 @@ public class KnjigaService {
     public List<Knjiga> knjigePoAutoru(String ime){
         return StreamSupport.stream(knjigaRepo.findKnjigasByAutori(autorRepo.findAutorByImeContains(ime)).spliterator(),true).collect(Collectors.toList());
     }
+
+    public Knjiga izmeniKnjigu(Knjiga knjiga){
+        return knjigaRepo.save(knjiga);
+    }
+
+    //Resiti kasnije
+//    public void izbrisiKnjigu(Knjiga knjiga){
+//        knjigeAutoraService
+//    }
 }

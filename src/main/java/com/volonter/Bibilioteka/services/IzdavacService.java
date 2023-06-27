@@ -1,5 +1,6 @@
 package com.volonter.Bibilioteka.services;
 
+import com.volonter.Bibilioteka.entities.Autor;
 import com.volonter.Bibilioteka.entities.Izdavac;
 import com.volonter.Bibilioteka.repositories.IzdavacRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,13 @@ public class IzdavacService {
 
     public List<Izdavac> izdavaciPoNazivu(String naziv){
         return StreamSupport.stream(izdavacRepo.findIzdavacsByNazivContains(naziv).spliterator(),true).collect(Collectors.toList());
+    }
+
+    public Izdavac izmeniIzdavaca(Izdavac izdavac) {
+        return izdavacRepo.save(izdavac);
+    }
+
+    public void izbrisiIzdavaca(Izdavac izdavac){
+        izdavacRepo.delete(izdavac);
     }
 }

@@ -30,7 +30,6 @@ public class KnjigaService {
         if(knjiga.getId() == null) {
             knjiga.getAutori().stream().forEach(autor -> autor.setAutoriKnjige
                     (autorRepo.findById(autor.getAutoriKnjige().getId()).get()));
-            knjiga.getAutori().stream().forEach(autor -> System.out.println(autor.getAutoriKnjige().getIme()));
             knjiga.getAutori().stream().forEach(autor -> autor.setKnjigaAutora(knjiga));
             knjigaRepo.save(knjiga);
             knjigeAutoraService.zapisiAutoreKnjiga(knjiga.getAutori());

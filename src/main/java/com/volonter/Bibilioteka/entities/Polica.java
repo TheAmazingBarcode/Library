@@ -1,6 +1,7 @@
 package com.volonter.Bibilioteka.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class Polica {
     @Column(name = "naziv",nullable = false)
     private String naziv;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "prostorija_prostorija_id",nullable = false)
     private Prostorija prostorija;

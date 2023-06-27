@@ -1,8 +1,6 @@
 package com.volonter.Bibilioteka.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -39,24 +37,41 @@ public class Knjiga {
     @Column(name = "fotografija_zadnja")
     private String fotografijaZadnja;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "izdavac_izdavac_id",nullable = false)
     private Izdavac izdavac;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "kategorija_kategorija_id",nullable = false)
     private Kategorija kategorija;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "polica_polica_id",nullable = false)
     private Polica polica;
 
-
-    @OneToMany(mappedBy = "knjigaAutora",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonProperty("autori")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "knjigaAutora",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private Set<AutoriKnjiga> autori;
 
     public Integer getId() {
         return id;
+    }
+
+    public void setAutori(Set<AutoriKnjiga> autori) {
+        this.autori = autori;
+    }
+
+    public Knjiga() {
+    }
+
+
+
+    public void addAutori(AutoriKnjiga autor){
+        autori.add(autor);
     }
 
     public void setId(Integer id) {

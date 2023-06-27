@@ -1,12 +1,17 @@
 package com.volonter.Bibilioteka.services;
 
 import com.volonter.Bibilioteka.entities.Autor;
+import com.volonter.Bibilioteka.entities.AutoriKnjiga;
 import com.volonter.Bibilioteka.entities.Knjiga;
 import com.volonter.Bibilioteka.repositories.AutorRepo;
+import com.volonter.Bibilioteka.repositories.AutoriKnjigaRepo;
 import com.volonter.Bibilioteka.repositories.KnjigaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -18,9 +23,17 @@ public class KnjigaService {
     @Autowired
     private AutorRepo autorRepo;
 
+    @Autowired
+    private KnjigeAutoraService knjigeAutoraService;
+
     public boolean kreirajKnjigu(Knjiga knjiga){
         if(knjiga.getId() == null) {
+            knjiga.getAutori().stream().forEach(autor -> autor.setAutoriKnjige
+                    (autorRepo.findById(autor.getAutoriKnjige().getId()).get()));
+            knjiga.getAutori().stream().forEach(autor -> System.out.println(autor.getAutoriKnjige().getIme()));
+            knjiga.getAutori().stream().forEach(autor -> autor.setKnjigaAutora(knjiga));
             knjigaRepo.save(knjiga);
+            knjigeAutoraService.zapisiAutoreKnjiga(knjiga.getAutori());
             return true;
         }
         return false;

@@ -1,5 +1,7 @@
 package com.volonter.Bibilioteka.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -13,12 +15,22 @@ public class AutoriKnjiga {
     private Integer id;
 
     @ManyToOne(optional = false)
+    @JsonBackReference
     @JoinColumn(name = "knjiga_knjiga_id")
     private Knjiga knjigaAutora;
 
     @ManyToOne(optional = false)
+    @JsonProperty("autorKnjige")
     @JoinColumn(name = "autor_autor_id")
+    @JsonBackReference
     private Autor autorKnjige;
+
+    public AutoriKnjiga(Autor autorKnjige) {
+        this.autorKnjige = autorKnjige;
+    }
+
+    public AutoriKnjiga() {
+    }
 
     public Integer getId() {
         return id;
@@ -36,12 +48,12 @@ public class AutoriKnjiga {
         this.knjigaAutora = knjigaAutora;
     }
 
-    public Autor getAutorKnjige() {
+    public Autor getAutoriKnjige() {
         return autorKnjige;
     }
 
-    public void setAutorKnjige(Autor autorKnjige) {
-        this.autorKnjige = autorKnjige;
+    public void setAutoriKnjige(Autor autoriKnjige) {
+        this.autorKnjige = autoriKnjige;
     }
 
     @Override
@@ -49,11 +61,11 @@ public class AutoriKnjiga {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AutoriKnjiga that = (AutoriKnjiga) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getKnjigaAutora(), that.getKnjigaAutora()) && Objects.equals(getAutorKnjige(), that.getAutorKnjige());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getKnjigaAutora(), that.getKnjigaAutora()) && Objects.equals(getAutoriKnjige(), that.getAutoriKnjige());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getKnjigaAutora(), getAutorKnjige());
+        return Objects.hash(getId(), getKnjigaAutora(), getAutoriKnjige());
     }
 }

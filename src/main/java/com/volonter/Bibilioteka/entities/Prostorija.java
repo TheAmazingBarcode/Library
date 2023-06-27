@@ -1,5 +1,6 @@
 package com.volonter.Bibilioteka.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -16,6 +17,7 @@ public class Prostorija {
     @Column(name = "naziv",nullable = false)
     private String naziv;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "prostorija",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Polica> police;
 

@@ -1,6 +1,7 @@
 package com.volonter.Bibilioteka.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -21,8 +22,16 @@ public class Autor {
     private String prezime;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "autorKnjige",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "autorKnjige",fetch = FetchType.LAZY)
     private Set<AutoriKnjiga> knjige;
+
+    public Autor() {
+    }
+
+    public Autor(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

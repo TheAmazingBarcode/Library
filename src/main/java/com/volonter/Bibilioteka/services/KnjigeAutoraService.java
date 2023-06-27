@@ -1,6 +1,7 @@
 package com.volonter.Bibilioteka.services;
 
 import com.volonter.Bibilioteka.entities.Autor;
+import com.volonter.Bibilioteka.entities.AutoriKnjiga;
 import com.volonter.Bibilioteka.entities.Knjiga;
 import com.volonter.Bibilioteka.repositories.AutorRepo;
 import com.volonter.Bibilioteka.repositories.AutoriKnjigaRepo;
@@ -14,6 +15,8 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class KnjigeAutoraService {
+    @Autowired
+    private AutoriKnjigaRepo autoriKnjigaRepo;
 
     @Autowired
     private AutorRepo autorRepo;
@@ -28,5 +31,7 @@ public class KnjigeAutoraService {
     public List<Autor> autoriKnjige(Knjiga knjiga){
         return StreamSupport.stream(autorRepo.findAutorsByKnjige(knjiga).spliterator(),true).collect(Collectors.toList());
     }
+
+    public void zapisiAutoreKnjiga(Iterable<AutoriKnjiga> autoriKnjiga){autoriKnjigaRepo.saveAll(autoriKnjiga);}
 
 }

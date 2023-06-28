@@ -1,8 +1,6 @@
 package com.volonter.Bibilioteka.services;
 
-import com.volonter.Bibilioteka.entities.Autor;
-import com.volonter.Bibilioteka.entities.AutoriKnjiga;
-import com.volonter.Bibilioteka.entities.Knjiga;
+import com.volonter.Bibilioteka.entities.*;
 import com.volonter.Bibilioteka.repositories.AutorRepo;
 import com.volonter.Bibilioteka.repositories.AutoriKnjigaRepo;
 import com.volonter.Bibilioteka.repositories.KnjigaRepo;
@@ -53,9 +51,22 @@ public class KnjigaService {
     }
 
     public Knjiga izmeniKnjigu(Knjiga knjiga){
-        return knjigaRepo.save(knjiga);
+        knjigeAutoraService.izbrisiVezu(knjiga);
+            knjiga.getAutori().stream().forEach(autor -> autor.setAutoriKnjige
+                (autorRepo.findById(autor.getAutoriKnjige().getId()).get()));
+            knjiga.getAutori().stream().forEach(autor -> autor.setKnjigaAutora(knjiga));
+            knjigaRepo.save(knjiga);
+            knjigeAutoraService.zapisiAutoreKnjiga(knjiga.getAutori());
+        return knjigaRepo.findById(knjiga.getId()).get();
     }
 
+    public List<Knjiga> knjigeNaPolici(Polica polica){
+        return StreamSupport.stream(knjigaRepo.findKnjigasByPolica(polica).spliterator(),true).collect(Collectors.toList());
+    }
+
+    public List<Knjiga> knjigePoIzdavacu(Izdavac izdavac){
+        return StreamSupport.stream(knjigaRepo.findKnjigasByIzdavac(izdavac).spliterator(),true).collect(Collectors.toList());
+    }
 
     @Transactional
     public boolean izbrisiKnjigu(Knjiga knjiga) {

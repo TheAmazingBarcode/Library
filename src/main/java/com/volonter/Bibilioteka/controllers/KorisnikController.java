@@ -17,8 +17,14 @@ public class KorisnikController {
         return korisnikService.kreirajKorisnika(korisnik);
     }
 
-    @PutMapping(path = "uloguj",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "uloguj",consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean uloguj(@RequestBody Korisnik korisnik){
         return korisnikService.ulogujKorisnika(korisnik);
     }
+
+    @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Korisnik korisnik(@RequestBody Korisnik korisnik){return korisnikService.izmeniKorisnika(korisnik);}
+
+    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean izbrisiKorisnika(@RequestBody Korisnik korisnik){return korisnikService.izbrisiKorisnika(korisnik);}
 }

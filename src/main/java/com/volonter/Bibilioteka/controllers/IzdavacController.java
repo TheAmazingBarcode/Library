@@ -28,4 +28,10 @@ public class IzdavacController {
     public boolean kreirajNovi(@RequestBody Izdavac izdavac){
         return izdavacService.kreirajIzadavaca(izdavac);
     }
+
+    @PutMapping
+    public Izdavac izdavac(@RequestBody Izdavac izdavac){return izdavacService.izmeniIzdavaca(izdavac);}
+
+    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean izbrisi(@RequestBody Izdavac izdavac){return izdavacService.izbrisiIzadavaca(izdavac);}
 }

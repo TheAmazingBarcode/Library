@@ -2,6 +2,7 @@ package com.volonter.Bibilioteka.services;
 
 import com.volonter.Bibilioteka.entities.Autor;
 import com.volonter.Bibilioteka.repositories.AutorRepo;
+import com.volonter.Bibilioteka.repositories.KnjigaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,6 +13,9 @@ import java.util.stream.StreamSupport;
 public class AutorService {
     @Autowired
     private AutorRepo autorRepo;
+
+    @Autowired
+    private KnjigaRepo knjigaRepo;
 
     public boolean kreirajAutora(Autor autor){
         if(autor.getId() == null){
@@ -34,7 +38,11 @@ public class AutorService {
         return autorRepo.save(autor);
     }
 
-    public void izbrisiAutora(Autor autor){
-        autorRepo.delete(autor);
+    public boolean izbrisiAutora(Autor autor){
+            if (StreamSupport.stream(knjigaRepo.findKnjigasByAutori(autor).spliterator(), true).collect(Collectors.toList()).isEmpty()) {
+                autorRepo.delete(autor);
+                return true;
+            }
+        return false;
     }
 }

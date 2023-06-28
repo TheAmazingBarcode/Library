@@ -26,8 +26,14 @@ public class KorisnikService {
         return korisnici.save(korisnik);
     }
 
-    public void izbrisiKorisnika(Korisnik korisnik){
-        korisnici.delete(korisnik);
+    public boolean izbrisiKorisnika(Korisnik korisnik){
+      try{
+          korisnici.delete(korisnik);
+          return true;
+      }
+      catch (Exception e){
+          return false;
+      }
     }
 
 }

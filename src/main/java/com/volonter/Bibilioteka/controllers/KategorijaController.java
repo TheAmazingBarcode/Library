@@ -20,12 +20,14 @@ public class KategorijaController {
     }
 
     @GetMapping(path = "pretraga/{naziv}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Kategorija> poNazivu(@PathVariable String naziv){
-        return kategorijaService.prikazKategorijePoNazivu(naziv);
-    }
+    public List<Kategorija> poNazivu(@PathVariable String naziv){return kategorijaService.prikazKategorijePoNazivu(naziv);}
 
     @PostMapping(path = "nova",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean kreirajNovu(@RequestBody Kategorija kategorija){
-        return kategorijaService.kreirajKategoriju(kategorija);
-    }
+    public boolean kreirajNovu(@RequestBody Kategorija kategorija){return kategorijaService.kreirajKategoriju(kategorija);}
+
+    @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Kategorija izmeniKategoriju(@RequestBody Kategorija kategorija){return kategorijaService.izmeniKategoriju(kategorija);}
+
+    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean izbrisiKategoriju(@RequestBody Kategorija kategorija){return kategorijaService.izbrisiKategoriju(kategorija);}
 }

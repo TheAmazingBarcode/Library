@@ -2,6 +2,7 @@ package com.volonter.Bibilioteka.services;
 
 import com.volonter.Bibilioteka.entities.Kategorija;
 import com.volonter.Bibilioteka.repositories.KategorijaRepo;
+import com.volonter.Bibilioteka.repositories.KnjigaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ import java.util.stream.StreamSupport;
 public class KategorijaService {
     @Autowired
     private KategorijaRepo kategorijaRepo;
+
+    @Autowired
+    private KnjigaRepo knjigaRepo;
 
     public boolean kreirajKategoriju(Kategorija kategorija){
         if(kategorija.getId() == null){
@@ -35,9 +39,12 @@ public class KategorijaService {
         return kategorijaRepo.save(kategorija);
     }
 
-
-    ///Opasno brisati, treba uvesti proveru da li je moguce izbrisati kategoriju, moguce je samo ukoliko ne postoje knjige koje pripadaju datoj kategoriji
-//    public void izbrisiKategoriju(Kategorija kategorija){
-//        kategorijaRepo.delete(kategorija);
-//    }
+    public boolean izbrisiKategoriju(Kategorija kategorija){
+        if(StreamSupport.stream(knjigaRepo.findKnjigasByKategorija(kategorija).spliterator(),true).collect(Collectors.toList()).isEmpty()){
+            kategorijaRepo.delete(kategorija);
+            return true;
+        }
+        else
+            return false;
+    }
 }

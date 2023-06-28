@@ -25,9 +25,15 @@ public class ProstorijaController {
         return prostorijaService.prostorijePoNazivu(naziv);
     }
 
-    @PutMapping(path = "police",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "police",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Polica> police(@RequestBody Prostorija prostorija){ return prostorijaService.policeProstorije(prostorija); }
 
     @PostMapping(path = "nova",consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean kreirajNovu(@RequestBody Prostorija prostorija){ return prostorijaService.kreirajProstoriju(prostorija); }
+
+    @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Prostorija izmeniProstoriju(@RequestBody Prostorija prostorija){return prostorijaService.izmeniProstoriju(prostorija);}
+
+    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean izbrisiProstoriju(@RequestBody Prostorija prostorija){return prostorijaService.izbrisiProstoriju(prostorija);}
 }

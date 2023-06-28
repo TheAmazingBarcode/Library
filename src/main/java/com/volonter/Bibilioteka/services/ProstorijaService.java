@@ -17,6 +17,7 @@ public class ProstorijaService {
     @Autowired
     private PolicaService policaService;
 
+
     public boolean kreirajProstoriju(Prostorija prostorija){
         if(prostorija.getId() == null){
             prostorijaRepo.save(prostorija);
@@ -37,4 +38,16 @@ public class ProstorijaService {
     public List<Polica> policeProstorije(Prostorija prostorija){
         return policaService.policePoProstoriji(prostorija);
     }
+
+    public Prostorija izmeniProstoriju(Prostorija prostorija){return prostorijaRepo.save(prostorija);}
+
+    public boolean izbrisiProstoriju(Prostorija prostorija){
+        if(policaService.policePoProstoriji(prostorija).isEmpty()){
+            prostorijaRepo.delete(prostorija);
+            return true;
+        }
+        else
+            return false;
+    }
+
 }

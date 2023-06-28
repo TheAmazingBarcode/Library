@@ -2,6 +2,7 @@ package com.volonter.Bibilioteka.services;
 
 import com.volonter.Bibilioteka.entities.Polica;
 import com.volonter.Bibilioteka.entities.Prostorija;
+import com.volonter.Bibilioteka.repositories.KnjigaRepo;
 import com.volonter.Bibilioteka.repositories.PolicaRepo;
 import com.volonter.Bibilioteka.repositories.ProstorijaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import java.util.stream.StreamSupport;
 public class PolicaService {
     @Autowired
     private PolicaRepo policaRepo;
+
+    @Autowired
+    private KnjigaRepo knjigaRepo;
 
     public boolean kreirajPolicu(Polica polica){
         if(polica.getId() == null){
@@ -34,5 +38,18 @@ public class PolicaService {
 
     public List<Polica> policePoProstoriji(Prostorija prostorija){
         return StreamSupport.stream(policaRepo.findPolicasByProstorija(prostorija).spliterator(),true).collect(Collectors.toList());
+    }
+
+    public Polica izmeniPolicu(Polica polica){
+        return policaRepo.save(polica);
+    }
+
+    public boolean izbrisiPolicu(Polica polica){
+        if(StreamSupport.stream(knjigaRepo.findKnjigasByPolica(polica).spliterator(),true).collect(Collectors.toList()).isEmpty()){
+            policaRepo.delete(polica);
+            return true;
+        }
+        else
+            return false;
     }
 }

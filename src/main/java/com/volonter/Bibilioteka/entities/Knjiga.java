@@ -38,19 +38,24 @@ public class Knjiga {
     private String fotografijaZadnja;
 
 //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonBackReference(value = "izdavac-knjige")
+    @JsonProperty("izdavac")
+    @JsonManagedReference(value = "izdavac-knjige")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "izdavac_izdavac_id",nullable = false)
     private Izdavac izdavac;
 
     /*@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})*/
-    @JsonBackReference(value = "kategorija-knjige")
+    @JsonProperty("kategorija")
+    @JsonManagedReference(value = "kategorija-knjige")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "kategorija_kategorija_id",nullable = false)
     private Kategorija kategorija;
 
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonBackReference(value = "polica-knjige")
+    @JsonProperty("polica")
+    @JsonManagedReference(value = "polica-knjige")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "polica_polica_id",nullable = false)
     private Polica polica;

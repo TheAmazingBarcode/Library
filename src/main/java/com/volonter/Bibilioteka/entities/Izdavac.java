@@ -28,7 +28,7 @@ public class Izdavac {
     @Column(name = "godina_osnivanja")
     private Integer godinaOsnivanja;
 
-    @JsonManagedReference(value = "izdavac-knjige")
+    @JsonBackReference(value = "izdavac-knjige")
     @OneToMany(mappedBy = "izdavac",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Knjiga> knjige;
 

@@ -24,7 +24,7 @@ public class Polica {
     @JoinColumn(name = "prostorija_prostorija_id",nullable = false)
     private Prostorija prostorija;
 
-    @JsonManagedReference(value = "polica-knjige")
+    @JsonBackReference(value = "polica-knjige")
     @OneToMany(mappedBy = "polica",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Knjiga> knjige;
 

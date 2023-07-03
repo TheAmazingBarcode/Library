@@ -1,14 +1,15 @@
 package com.volonter.Bibilioteka.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "polica")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id",
+//        scope = Integer.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Polica {
 
     @Id
@@ -24,7 +25,7 @@ public class Polica {
     @JoinColumn(name = "prostorija_prostorija_id",nullable = false)
     private Prostorija prostorija;
 
-    @JsonBackReference(value = "polica-knjige")
+    @JsonIgnore
     @OneToMany(mappedBy = "polica",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Knjiga> knjige;
 

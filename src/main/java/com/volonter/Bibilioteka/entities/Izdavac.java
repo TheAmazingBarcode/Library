@@ -1,14 +1,13 @@
 package com.volonter.Bibilioteka.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "izdavac")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Izdavac {
 
     @Id
@@ -28,7 +27,7 @@ public class Izdavac {
     @Column(name = "godina_osnivanja")
     private Integer godinaOsnivanja;
 
-    @JsonBackReference(value = "izdavac-knjige")
+    @JsonIgnore
     @OneToMany(mappedBy = "izdavac",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Knjiga> knjige;
 

@@ -7,6 +7,7 @@ import com.volonter.Bibilioteka.services.KnjigaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.function.ServerRequest;
 
 import java.util.List;
@@ -33,8 +34,8 @@ public class KnjigaController {
     @GetMapping(path = "izdavac",consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Knjiga> knjigePoIzdavacu(@RequestBody Izdavac izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
 
-    @PostMapping(path = "nova",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean novaKnjiga(@RequestBody Knjiga knjiga){return knjigaService.kreirajKnjigu(knjiga);}
+    @PostMapping(path = "nova",consumes =MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public boolean novaKnjiga(@RequestPart("json") Knjiga knjiga, @RequestPart("files")MultipartFile[] files){System.out.println("RECEIVED"); return knjigaService.kreirajKnjigu(knjiga,files);}
 
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Knjiga izmeniKnjigu(@RequestBody Knjiga knjiga){return knjigaService.izmeniKnjigu(knjiga);}

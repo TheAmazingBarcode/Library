@@ -19,7 +19,7 @@ public class Kategorija {
     @Column(name = "naziv",nullable = false)
     private String naziv;
 
-    @JsonBackReference(value = "kategorija-knjige")
+    @JsonIgnore
     @OneToMany(mappedBy = "kategorija",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     Set<Knjiga> knjige;
 

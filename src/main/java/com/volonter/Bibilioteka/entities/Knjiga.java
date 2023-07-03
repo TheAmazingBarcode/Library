@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity(name = "knjiga")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Knjiga {
 
     @Id
@@ -39,7 +40,6 @@ public class Knjiga {
 
 //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonProperty("izdavac")
-    @JsonManagedReference(value = "izdavac-knjige")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "izdavac_izdavac_id",nullable = false)
@@ -47,14 +47,12 @@ public class Knjiga {
 
     /*@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})*/
     @JsonProperty("kategorija")
-    @JsonManagedReference(value = "kategorija-knjige")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "kategorija_kategorija_id",nullable = false)
     private Kategorija kategorija;
 
     @JsonProperty("polica")
-    @JsonManagedReference(value = "polica-knjige")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "polica_polica_id",nullable = false)

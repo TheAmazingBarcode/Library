@@ -34,7 +34,7 @@ public class KnjigaController {
     @GetMapping(path = "izdavac",consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Knjiga> knjigePoIzdavacu(@RequestBody Izdavac izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
 
-    @PostMapping(path = "nova",consumes =MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @PostMapping(path = "nova",consumes =MediaType.MULTIPART_FORM_DATA_VALUE)
     public boolean novaKnjiga(@RequestPart("json") Knjiga knjiga, @RequestPart("files")MultipartFile[] files){System.out.println("RECEIVED"); return knjigaService.kreirajKnjigu(knjiga,files);}
 
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)

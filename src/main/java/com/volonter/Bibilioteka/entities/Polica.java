@@ -9,7 +9,7 @@ import java.util.Set;
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id",
 //        scope = Integer.class)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Polica.class)
 public class Polica {
 
     @Id
@@ -21,12 +21,12 @@ public class Polica {
     private String naziv;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "prostorija_prostorija_id",nullable = false)
     private Prostorija prostorija;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "polica",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "polica",cascade = CascadeType.ALL)
     private Set<Knjiga> knjige;
 
     public Polica() {

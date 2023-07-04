@@ -28,11 +28,11 @@ public class KategorijaService {
     }
 
     public List<Kategorija> prikazKategorija(){
-        return StreamSupport.stream(kategorijaRepo.findAll().spliterator(),true).collect(Collectors.toList());
+        return kategorijaRepo.findAll();
     }
 
     public List<Kategorija> prikazKategorijePoNazivu(String naziv){
-        return StreamSupport.stream(kategorijaRepo.findKategorijasByNazivContains(naziv).spliterator(),true).collect(Collectors.toList());
+        return kategorijaRepo.findKategorijasByNazivContains(naziv);
     }
 
     public Kategorija izmeniKategoriju(Kategorija kategorija){
@@ -40,7 +40,7 @@ public class KategorijaService {
     }
 
     public boolean izbrisiKategoriju(Kategorija kategorija){
-        if(StreamSupport.stream(knjigaRepo.findKnjigasByKategorija(kategorija).spliterator(),true).collect(Collectors.toList()).isEmpty()){
+        if(knjigaRepo.findKnjigasByKategorija(kategorija).isEmpty()){
             kategorijaRepo.delete(kategorija);
             return true;
         }

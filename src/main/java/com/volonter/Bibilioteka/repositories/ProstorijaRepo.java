@@ -1,8 +1,11 @@
 package com.volonter.Bibilioteka.repositories;
 
 import com.volonter.Bibilioteka.entities.Prostorija;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProstorijaRepo extends CrudRepository<Prostorija,Integer> {
-    Iterable<Prostorija> findProstorijasByNazivContains(String naziv);
+import java.util.List;
+
+public interface ProstorijaRepo extends JpaRepository<Prostorija,Integer> {
+    List<Prostorija> findProstorijasByNazivContains(String naziv);
 }

@@ -27,11 +27,11 @@ public class AutorService {
     }
 
     public List<Autor> prikazAutora(){
-        return StreamSupport.stream(autorRepo.findAll().spliterator(),true).collect(Collectors.toList());
+        return autorRepo.findAll();
     }
 
     public List<Autor> prikazAutoraPoImenu(String ime){
-        return StreamSupport.stream(autorRepo.findAutorsByImeContains(ime).spliterator(),true).collect(Collectors.toList());
+        return autorRepo.findAutorsByImeContains(ime);
     }
 
     public Autor izmeniAutora(Autor autor){
@@ -39,7 +39,7 @@ public class AutorService {
     }
 
     public boolean izbrisiAutora(Autor autor){
-            if (StreamSupport.stream(knjigaRepo.findKnjigasByAutori(autor).spliterator(), true).collect(Collectors.toList()).isEmpty()) {
+            if (knjigaRepo.findKnjigasByAutori(autor).isEmpty()) {
                 autorRepo.delete(autor);
                 return true;
             }

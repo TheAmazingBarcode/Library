@@ -29,11 +29,11 @@ public class IzdavacService {
     }
 
     public List<Izdavac> sviIzdavaci(){
-        return StreamSupport.stream(izdavacRepo.findAll().spliterator(),true).collect(Collectors.toList());
+        return izdavacRepo.findAll();
     }
 
     public List<Izdavac> izdavaciPoNazivu(String naziv){
-        return StreamSupport.stream(izdavacRepo.findIzdavacsByNazivContains(naziv).spliterator(),true).collect(Collectors.toList());
+        return izdavacRepo.findIzdavacsByNazivContains(naziv);
     }
 
     public Izdavac izmeniIzdavaca(Izdavac izdavac) {
@@ -42,7 +42,7 @@ public class IzdavacService {
 
 
     public boolean izbrisiIzadavaca(Izdavac izdavac){
-        if(StreamSupport.stream(knjigaRepo.findKnjigasByIzdavac(izdavac).spliterator(),true).collect(Collectors.toList()).isEmpty()){
+        if(knjigaRepo.findKnjigasByIzdavac(izdavac).isEmpty()){
             izdavacRepo.delete(izdavac);
             return true;
         }

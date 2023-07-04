@@ -1,12 +1,15 @@
 package com.volonter.Bibilioteka.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "prostorija")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Prostorija.class)
 public class Prostorija {
 
     @Id
@@ -18,7 +21,7 @@ public class Prostorija {
     private String naziv;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "prostorija",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "prostorija",cascade = CascadeType.ALL)
     private Set<Polica> police;
 
     public Integer getId() {

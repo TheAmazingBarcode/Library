@@ -4,6 +4,7 @@ import com.volonter.Bibilioteka.entities.*;
 import com.volonter.Bibilioteka.repositories.AutorRepo;
 import com.volonter.Bibilioteka.repositories.AutoriKnjigaRepo;
 import com.volonter.Bibilioteka.repositories.KnjigaRepo;
+import com.volonter.Bibilioteka.repositories.PolicaRepo;
 import com.volonter.Bibilioteka.utility.ImgUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class KnjigaService {
 
     @Autowired
     private AutorRepo autorRepo;
+
+    @Autowired
+    private PolicaService policaService;
+
+    @Autowired
+    private IzdavacService izdavacService;
 
     @Autowired
     private KnjigeAutoraService knjigeAutoraService;
@@ -56,15 +63,17 @@ public class KnjigaService {
     }
 
     public List<Knjiga> sveKnjige(){
-        return StreamSupport.stream(knjigaRepo.findAll().spliterator(),true).collect(Collectors.toList());
+       List<Knjiga> knjige =  knjigaRepo.findAll();
+       knjige.forEach(knjiga -> System.out.println(knjiga.getKategorija().getNaziv()));
+       return knjige;
     }
 
     public List<Knjiga> knjigePoNaslovu(String naslov){
-        return StreamSupport.stream(knjigaRepo.findKnjigasByNaslovContains(naslov).spliterator(),true).collect(Collectors.toList());
+        return knjigaRepo.findKnjigasByNaslovContains(naslov);
     }
 
     public List<Knjiga> knjigePoAutoru(String ime){
-        return StreamSupport.stream(knjigaRepo.findKnjigasByAutori(autorRepo.findAutorByImeContains(ime)).spliterator(),true).collect(Collectors.toList());
+        return knjigaRepo.findKnjigasByAutori(autorRepo.findAutorByImeContains(ime));
     }
 
     public Knjiga izmeniKnjigu(Knjiga knjiga){
@@ -78,11 +87,11 @@ public class KnjigaService {
     }
 
     public List<Knjiga> knjigeNaPolici(Polica polica){
-        return StreamSupport.stream(knjigaRepo.findKnjigasByPolica(polica).spliterator(),true).collect(Collectors.toList());
+        return knjigaRepo.findKnjigasByPolica(policaService.policePoNazivu(polica.getNaziv()).get(0));
     }
 
     public List<Knjiga> knjigePoIzdavacu(Izdavac izdavac){
-        return StreamSupport.stream(knjigaRepo.findKnjigasByIzdavac(izdavac).spliterator(),true).collect(Collectors.toList());
+        return knjigaRepo.findKnjigasByIzdavac(izdavacService.izdavaciPoNazivu(izdavac.getNaziv()).get(0));
     }
 
     @Transactional

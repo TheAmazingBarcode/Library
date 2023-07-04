@@ -1,20 +1,21 @@
 package com.volonter.Bibilioteka.repositories;
 
 import com.volonter.Bibilioteka.entities.*;
-import org.springframework.data.relational.core.query.Criteria;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface KnjigaRepo extends CrudRepository<Knjiga,Integer> {
-    Iterable<Knjiga> findKnjigasByAutori(Autor autor);
+import java.util.List;
 
-    Iterable<Knjiga> findKnjigasByNaslovContains(String naslov);
+public interface KnjigaRepo extends JpaRepository<Knjiga, Integer> {
+    List<Knjiga> findKnjigasByAutori(Autor autor);
 
-    Iterable<Knjiga> findKnjigasByNaslovIgnoreCase(String naslov);
+    List<Knjiga> findKnjigasByNaslovContains(String naslov);
 
-    Iterable<Knjiga> findKnjigasByIzdavac(Izdavac izdavac);
+    List<Knjiga> findKnjigasByNaslovIgnoreCase(String naslov);
 
-    Iterable<Knjiga> findKnjigasByKategorija(Kategorija kategorija);
+    List<Knjiga> findKnjigasByIzdavac(Izdavac izdavac);
 
-    Iterable<Knjiga> findKnjigasByPolica(Polica polica);
+    List<Knjiga> findKnjigasByKategorija(Kategorija kategorija);
+
+    List<Knjiga> findKnjigasByPolica(Polica polica);
 
 }

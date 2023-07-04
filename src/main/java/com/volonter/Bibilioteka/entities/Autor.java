@@ -1,13 +1,16 @@
 package com.volonter.Bibilioteka.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "autor")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Autor.class)
 public class Autor {
 
     @Id
@@ -23,7 +26,7 @@ public class Autor {
 
     @JsonIgnore
     @JsonManagedReference("knjige-autora")
-    @OneToMany(mappedBy = "autorKnjige",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "autorKnjige")
     private Set<AutoriKnjiga> knjige;
 
     public Autor() {

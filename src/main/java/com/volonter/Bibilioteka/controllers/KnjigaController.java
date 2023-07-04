@@ -1,5 +1,7 @@
 package com.volonter.Bibilioteka.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.volonter.Bibilioteka.entities.Izdavac;
 import com.volonter.Bibilioteka.entities.Knjiga;
 import com.volonter.Bibilioteka.entities.Polica;
@@ -19,7 +21,7 @@ public class KnjigaController {
     @Autowired
     private KnjigaService knjigaService;
 
-    @GetMapping(path = "sve",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "sve")
     public List<Knjiga> sve(){return knjigaService.sveKnjige();}
 
     @GetMapping(path = "pretraga/{naziv}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,7 +37,13 @@ public class KnjigaController {
     public List<Knjiga> knjigePoIzdavacu(@RequestBody Izdavac izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
 
     @PostMapping(path = "nova",consumes =MediaType.MULTIPART_FORM_DATA_VALUE)
-    public boolean novaKnjiga(@RequestPart("json") Knjiga knjiga, @RequestPart("files")MultipartFile[] files){System.out.println("RECEIVED"); return knjigaService.kreirajKnjigu(knjiga,files);}
+    public boolean novaKnjiga(@RequestParam(value = "json") String knjigaData, @RequestParam(value = "files") MultipartFile[] files){
+        try {
+            return knjigaService.kreirajKnjigu(new ObjectMapper().readValue(knjigaData,Knjiga.class),files);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Knjiga izmeniKnjigu(@RequestBody Knjiga knjiga){return knjigaService.izmeniKnjigu(knjiga);}

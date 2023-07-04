@@ -25,11 +25,11 @@ public class KnjigeAutoraService {
     private KnjigaRepo knjigaRepo;
 
     public List<Knjiga> knjigeAutora(Autor autor){
-        return StreamSupport.stream(knjigaRepo.findKnjigasByAutori(autor).spliterator(),true).collect(Collectors.toList());
+        return knjigaRepo.findKnjigasByAutori(autor);
     }
 
     public List<Autor> autoriKnjige(Knjiga knjiga){
-        return StreamSupport.stream(autorRepo.findAutorsByKnjige(knjiga).spliterator(),true).collect(Collectors.toList());
+        return autorRepo.findAutorsByKnjige(knjiga);
     }
 
     public void zapisiAutoreKnjiga(Iterable<AutoriKnjiga> autoriKnjiga){autoriKnjigaRepo.saveAll(autoriKnjiga);}

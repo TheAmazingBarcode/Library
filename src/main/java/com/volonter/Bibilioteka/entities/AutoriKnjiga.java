@@ -1,12 +1,15 @@
 package com.volonter.Bibilioteka.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity(name = "knjiga_has_autor")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = AutoriKnjiga.class)
 public class AutoriKnjiga {
 
     @Id

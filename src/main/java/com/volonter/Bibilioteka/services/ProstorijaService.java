@@ -28,11 +28,11 @@ public class ProstorijaService {
     }
 
     public List<Prostorija> sveProstorije(){
-        return StreamSupport.stream(prostorijaRepo.findAll().spliterator(),true).collect(Collectors.toList());
+        return prostorijaRepo.findAll();
     }
 
     public List<Prostorija> prostorijePoNazivu(String naziv){
-        return StreamSupport.stream(prostorijaRepo.findProstorijasByNazivContains(naziv).spliterator(),true).collect(Collectors.toList());
+        return prostorijaRepo.findProstorijasByNazivContains(naziv);
     }
 
     public List<Polica> policeProstorije(Prostorija prostorija){

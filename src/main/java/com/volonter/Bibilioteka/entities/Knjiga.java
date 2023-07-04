@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity(name = "knjiga")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Knjiga.class)
 public class Knjiga {
 
     @Id
@@ -38,29 +38,29 @@ public class Knjiga {
     @Column(name = "fotografija_zadnja")
     private String fotografijaZadnja;
 
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    
     @JsonProperty("izdavac")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    
+    @ManyToOne(optional = false)
     @JoinColumn(name = "izdavac_izdavac_id",nullable = false)
     private Izdavac izdavac;
 
-    /*@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})*/
+    /**/
     @JsonProperty("kategorija")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    
+    @ManyToOne(optional = false)
     @JoinColumn(name = "kategorija_kategorija_id",nullable = false)
     private Kategorija kategorija;
 
     @JsonProperty("polica")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    
+    @ManyToOne(optional = false)
     @JoinColumn(name = "polica_polica_id",nullable = false)
     private Polica polica;
 
     @JsonProperty("autori")
     @JsonManagedReference(value = "autori-knjige")
-    @OneToMany(mappedBy = "knjigaAutora",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "knjigaAutora",cascade = CascadeType.REMOVE)
     private Set<AutoriKnjiga> autori;
 
     public Integer getId() {

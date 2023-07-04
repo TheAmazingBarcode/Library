@@ -29,15 +29,15 @@ public class PolicaService {
     }
 
     public List<Polica> svePolice(){
-        return StreamSupport.stream(policaRepo.findAll().spliterator(),true).collect(Collectors.toList());
+       return policaRepo.findAll();
     }
 
     public List<Polica> policePoNazivu(String naziv){
-        return StreamSupport.stream(policaRepo.findPolicasByNazivContains(naziv).spliterator(),true).collect(Collectors.toList());
+        return policaRepo.findPolicasByNazivContains(naziv);
     }
 
     public List<Polica> policePoProstoriji(Prostorija prostorija){
-        return StreamSupport.stream(policaRepo.findPolicasByProstorija(prostorija).spliterator(),true).collect(Collectors.toList());
+        return policaRepo.findPolicasByProstorija(prostorija);
     }
 
     public Polica izmeniPolicu(Polica polica){

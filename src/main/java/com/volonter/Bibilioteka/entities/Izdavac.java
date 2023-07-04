@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "izdavac")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Izdavac.class)
 public class Izdavac {
 
     @Id
@@ -28,7 +28,7 @@ public class Izdavac {
     private Integer godinaOsnivanja;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "izdavac",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "izdavac",cascade = CascadeType.ALL)
     private Set<Knjiga> knjige;
 
     public void setId(Integer id) {

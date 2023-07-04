@@ -2,10 +2,13 @@ package com.volonter.Bibilioteka.repositories;
 
 import com.volonter.Bibilioteka.entities.Polica;
 import com.volonter.Bibilioteka.entities.Prostorija;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;;
 
-public interface PolicaRepo extends CrudRepository<Polica,Integer> {
-    Iterable<Polica> findPolicasByNazivContains(String naziv);
+import java.util.List;
 
-    Iterable<Polica> findPolicasByProstorija(Prostorija prostorija);
+public interface PolicaRepo extends JpaRepository<Polica,Integer> {
+    List<Polica> findPolicasByNazivContains(String naziv);
+
+
+    List<Polica> findPolicasByProstorija(Prostorija prostorija);
 }

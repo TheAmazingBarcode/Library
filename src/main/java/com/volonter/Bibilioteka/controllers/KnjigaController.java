@@ -30,11 +30,14 @@ public class KnjigaController {
     @GetMapping(path = "autor/{ime}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Knjiga> knjigaPoAutoru(@PathVariable String ime){return knjigaService.knjigePoAutoru(ime);}
 
+    @GetMapping(path = "kategorija/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Knjiga> knjigePoKategoriji(@PathVariable("id")Integer id){return knjigaService.knjigePoKategoriji(id);}
+
     @GetMapping(path = "polica",consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Knjiga> knjigeNaPolici(@RequestBody Polica polica){return knjigaService.knjigeNaPolici(polica);}
 
     @GetMapping(path = "izdavac/{id}")
-    public List<Knjiga> knjigePoIzdavacu(@PathVariable Integer izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
+    public List<Knjiga> knjigePoIzdavacu(@PathVariable("id") Integer izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
 
     @PostMapping(path = "nova",consumes =MediaType.MULTIPART_FORM_DATA_VALUE)
     public boolean novaKnjiga(@RequestParam(value = "json") String knjigaData, @RequestParam(value = "files") MultipartFile[] files){

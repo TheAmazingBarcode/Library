@@ -35,6 +35,9 @@ public class KnjigaService {
     @Autowired
     private KnjigeAutoraService knjigeAutoraService;
 
+    @Autowired
+    private KategorijaService kategorijaService;
+
     public boolean kreirajKnjigu(Knjiga knjiga, MultipartFile[] files){
         if(knjiga.getId() == null) {
             knjiga.getAutori().stream().forEach(autor -> autor.setAutoriKnjige
@@ -72,6 +75,10 @@ public class KnjigaService {
 
     public List<Knjiga> knjigePoAutoru(String ime){
         return knjigaRepo.findKnjigasByAutori(autorRepo.findAutorByImeContains(ime));
+    }
+
+    public List<Knjiga> knjigePoKategoriji(Integer id){
+        return knjigaRepo.findKnjigasByKategorija(kategorijaService.kategorijaPoId(id));
     }
 
     public Knjiga izmeniKnjigu(Knjiga knjiga){

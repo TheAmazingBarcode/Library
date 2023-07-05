@@ -1,6 +1,7 @@
 package com.volonter.Bibilioteka.services;
 
 import com.volonter.Bibilioteka.entities.Kategorija;
+import com.volonter.Bibilioteka.entities.Knjiga;
 import com.volonter.Bibilioteka.repositories.KategorijaRepo;
 import com.volonter.Bibilioteka.repositories.KnjigaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class KategorijaService {
 
     public List<Kategorija> prikazKategorijePoNazivu(String naziv){
         return kategorijaRepo.findKategorijasByNazivContains(naziv);
+    }
+
+    public Kategorija kategorijaPoId(Integer id){
+        return kategorijaRepo.findById(id).get();
     }
 
     public Kategorija izmeniKategoriju(Kategorija kategorija){

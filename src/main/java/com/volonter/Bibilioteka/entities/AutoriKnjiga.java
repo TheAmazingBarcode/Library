@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "knjiga_has_autor")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = AutoriKnjiga.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = AutoriKnjiga.class)
 public class AutoriKnjiga {
 
     @Id

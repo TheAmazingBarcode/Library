@@ -48,6 +48,6 @@ public class KnjigaController {
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Knjiga izmeniKnjigu(@RequestBody Knjiga knjiga){return knjigaService.izmeniKnjigu(knjiga);}
 
-    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean izbrisiKnjigu(@RequestBody Knjiga knjiga){return knjigaService.izbrisiKnjigu(knjiga);}
+    @DeleteMapping(path = "izbrisi/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean izbrisiKnjigu(@PathVariable Integer id){return knjigaService.izbrisiKnjigu(id);}
 }

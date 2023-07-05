@@ -63,9 +63,7 @@ public class KnjigaService {
     }
 
     public List<Knjiga> sveKnjige(){
-       List<Knjiga> knjige =  knjigaRepo.findAll();
-       knjige.forEach(knjiga -> System.out.println(knjiga.getKategorija().getNaziv()));
-       return knjige;
+       return knjigaRepo.findAll();
     }
 
     public List<Knjiga> knjigePoNaslovu(String naslov){
@@ -95,10 +93,10 @@ public class KnjigaService {
     }
 
     @Transactional
-    public boolean izbrisiKnjigu(Knjiga knjiga) {
+    public boolean izbrisiKnjigu(Integer id) {
         try {
-            knjigeAutoraService.izbrisiVezu(knjiga);
-            knjigaRepo.delete(knjiga);
+            knjigeAutoraService.izbrisiVezu(knjigaRepo.findById(id).get());
+            knjigaRepo.deleteById(id);
             return true;
         }
         catch (Exception e){

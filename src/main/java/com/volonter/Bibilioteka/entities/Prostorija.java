@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "prostorija")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Prostorija.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Prostorija.class)
 public class Prostorija {
 
     @Id

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity(name = "knjiga")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Knjiga.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",scope = Knjiga.class)
 public class Knjiga {
 
     @Id
@@ -48,12 +48,11 @@ public class Knjiga {
     /**/
     @JsonProperty("kategorija")
     
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name = "kategorija_kategorija_id",nullable = false)
     private Kategorija kategorija;
-
-    @JsonProperty("polica")
     
+    @JsonProperty("polica")
     @ManyToOne(optional = false)
     @JoinColumn(name = "polica_polica_id",nullable = false)
     private Polica polica;

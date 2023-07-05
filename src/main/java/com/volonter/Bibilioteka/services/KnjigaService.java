@@ -88,8 +88,8 @@ public class KnjigaService {
         return knjigaRepo.findKnjigasByPolica(policaService.policePoNazivu(polica.getNaziv()).get(0));
     }
 
-    public List<Knjiga> knjigePoIzdavacu(Izdavac izdavac){
-        return knjigaRepo.findKnjigasByIzdavac(izdavacService.izdavaciPoNazivu(izdavac.getNaziv()).get(0));
+    public List<Knjiga> knjigePoIzdavacu(Integer izdavac){
+        return knjigaRepo.findKnjigasByIzdavac(izdavacService.izdavacPoID(izdavac));
     }
 
     @Transactional

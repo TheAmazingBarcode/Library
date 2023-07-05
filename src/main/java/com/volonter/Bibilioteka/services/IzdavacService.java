@@ -32,6 +32,10 @@ public class IzdavacService {
         return izdavacRepo.findAll();
     }
 
+    public Izdavac izdavacPoID(Integer id){
+        return izdavacRepo.findById(id).get();
+    }
+
     public List<Izdavac> izdavaciPoNazivu(String naziv){
         return izdavacRepo.findIzdavacsByNazivContains(naziv);
     }

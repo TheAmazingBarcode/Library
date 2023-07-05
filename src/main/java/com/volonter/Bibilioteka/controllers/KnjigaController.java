@@ -33,8 +33,8 @@ public class KnjigaController {
     @GetMapping(path = "polica",consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Knjiga> knjigeNaPolici(@RequestBody Polica polica){return knjigaService.knjigeNaPolici(polica);}
 
-    @GetMapping(path = "izdavac",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Knjiga> knjigePoIzdavacu(@RequestBody Izdavac izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
+    @GetMapping(path = "izdavac/{id}")
+    public List<Knjiga> knjigePoIzdavacu(@PathVariable Integer izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
 
     @PostMapping(path = "nova",consumes =MediaType.MULTIPART_FORM_DATA_VALUE)
     public boolean novaKnjiga(@RequestParam(value = "json") String knjigaData, @RequestParam(value = "files") MultipartFile[] files){
@@ -48,6 +48,6 @@ public class KnjigaController {
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Knjiga izmeniKnjigu(@RequestBody Knjiga knjiga){return knjigaService.izmeniKnjigu(knjiga);}
 
-    @DeleteMapping(path = "izbrisi/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "izbrisi/{id}")
     public boolean izbrisiKnjigu(@PathVariable Integer id){return knjigaService.izbrisiKnjigu(id);}
 }

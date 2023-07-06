@@ -25,7 +25,7 @@ public class KnjigeAutoraService {
     private KnjigaRepo knjigaRepo;
 
     public List<Knjiga> knjigeAutora(Autor autor){
-        return knjigaRepo.findKnjigasByAutori(autor);
+       return autoriKnjigaRepo.findAutoriKnjigaByAutorKnjige(autor).stream().map(AutoriKnjiga::getKnjigaAutora).toList();
     }
 
     public List<Autor> autoriKnjige(Knjiga knjiga){

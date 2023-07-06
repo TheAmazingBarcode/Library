@@ -73,8 +73,8 @@ public class KnjigaService {
         return knjigaRepo.findKnjigasByNaslovContains(naslov);
     }
 
-    public List<Knjiga> knjigePoAutoru(String ime){
-        return knjigaRepo.findKnjigasByAutori(autorRepo.findAutorByImeContains(ime));
+    public List<Knjiga> knjigePoAutoru(Integer id){
+        return knjigeAutoraService.knjigeAutora(autorRepo.findById(id).get());
     }
 
     public List<Knjiga> knjigePoKategoriji(Integer id){

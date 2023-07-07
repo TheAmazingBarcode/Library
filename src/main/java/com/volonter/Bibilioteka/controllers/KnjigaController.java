@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.function.ServerRequest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -39,11 +42,11 @@ public class KnjigaController {
     @GetMapping(path = "izdavac/{id}")
     public List<Knjiga> knjigePoIzdavacu(@PathVariable("id") Integer izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}
 
-    @PostMapping(path = "nova",consumes =MediaType.MULTIPART_FORM_DATA_VALUE)
-    public boolean novaKnjiga(@RequestParam(value = "json") String knjigaData, @RequestParam(value = "files") MultipartFile[] files){
+    @PostMapping(path = "nova",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public boolean novaKnjiga(@RequestParam(value = "data") MultipartFile knjigaData, @RequestParam(value = "files") MultipartFile[] files){
         try {
-            return knjigaService.kreirajKnjigu(new ObjectMapper().readValue(knjigaData,Knjiga.class),files);
-        } catch (JsonProcessingException e) {
+            return knjigaService.kreirajKnjigu(new ObjectMapper().readValue(knjigaData.getInputStream().readAllBytes(),Knjiga.class),files);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

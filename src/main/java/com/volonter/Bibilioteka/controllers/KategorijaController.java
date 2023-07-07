@@ -29,6 +29,6 @@ public class KategorijaController {
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Kategorija izmeniKategoriju(@RequestBody Kategorija kategorija){return kategorijaService.izmeniKategoriju(kategorija);}
 
-    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean izbrisiKategoriju(@RequestBody Kategorija kategorija){return kategorijaService.izbrisiKategoriju(kategorija);}
+    @DeleteMapping(path = "izbrisi/{id}")
+    public boolean izbrisiKategoriju(@PathVariable Integer id){return kategorijaService.izbrisiKategoriju(id);}
 }

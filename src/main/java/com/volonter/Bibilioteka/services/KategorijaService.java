@@ -19,37 +19,39 @@ public class KategorijaService {
     @Autowired
     private KnjigaRepo knjigaRepo;
 
-    public boolean kreirajKategoriju(Kategorija kategorija){
-        if(kategorija.getId() == null){
+    public boolean kreirajKategoriju(Kategorija kategorija) {
+        if (kategorija.getId() == null) {
             kategorijaRepo.save(kategorija);
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-    public List<Kategorija> prikazKategorija(){
+    public List<Kategorija> prikazKategorija() {
         return kategorijaRepo.findAll();
     }
 
-    public List<Kategorija> prikazKategorijePoNazivu(String naziv){
+    public List<Kategorija> prikazKategorijePoNazivu(String naziv) {
         return kategorijaRepo.findKategorijasByNazivContains(naziv);
     }
 
-    public Kategorija kategorijaPoId(Integer id){
+    public Kategorija kategorijaPoId(Integer id) {
         return kategorijaRepo.findById(id).get();
     }
 
-    public Kategorija izmeniKategoriju(Kategorija kategorija){
+    public Kategorija izmeniKategoriju(Kategorija kategorija) {
         return kategorijaRepo.save(kategorija);
     }
 
-    public boolean izbrisiKategoriju(Kategorija kategorija){
-        if(knjigaRepo.findKnjigasByKategorija(kategorija).isEmpty()){
-            kategorijaRepo.delete(kategorija);
-            return true;
+    public boolean izbrisiKategoriju(Integer id) {
+        if (kategorijaRepo.existsById(id)) {
+            if (knjigaRepo.findKnjigasByKategorija(kategorijaRepo.findById(id).get()).isEmpty()) {
+                kategorijaRepo.deleteById(id);
+                return true;
+            } else
+                return false;
         }
-        else
-            return false;
+        return false;
     }
 }
+

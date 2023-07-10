@@ -33,6 +33,6 @@ public class AutorController {
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Autor izmeniAutora(@RequestBody Autor autor){ return autorService.izmeniAutora(autor); }
 
-    @DeleteMapping
-    public void izbrisiAutora(@RequestBody Autor autor){ autorService.izbrisiAutora(autor); }
+    @DeleteMapping(path = "izbrisi/{id}")
+    public void izbrisiAutora(@PathVariable(name = "id") Integer id){ autorService.izbrisiAutora(id); }
 }

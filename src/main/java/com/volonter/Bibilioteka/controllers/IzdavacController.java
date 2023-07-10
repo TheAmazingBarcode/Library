@@ -30,9 +30,9 @@ public class IzdavacController {
         return izdavacService.kreirajIzadavaca(izdavac);
     }
 
-    @PutMapping
-    public Izdavac izdavac(@RequestBody Izdavac izdavac){return izdavacService.izmeniIzdavaca(izdavac);}
+    @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Izdavac izmeniIzdavaca(@RequestBody Izdavac izdavac){return izdavacService.izmeniIzdavaca(izdavac);}
 
-    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean izbrisi(@RequestBody Izdavac izdavac){return izdavacService.izbrisiIzadavaca(izdavac);}
+    @DeleteMapping(path = "izbrisi/{id}")
+    public boolean izbrisi(@PathVariable(name = "id") Izdavac izdavac){return izdavacService.izbrisiIzadavaca(izdavac);}
 }

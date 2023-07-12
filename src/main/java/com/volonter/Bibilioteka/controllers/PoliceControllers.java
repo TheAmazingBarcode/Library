@@ -32,6 +32,6 @@ public class PoliceControllers {
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Polica izmeniPolicu(@RequestBody Polica polica){return policaService.izmeniPolicu(polica);}
 
-    @DeleteMapping(path = "izbrisi",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean izbrisiPolicu(@RequestBody Polica polica){return policaService.izbrisiPolicu(polica);}
+    @DeleteMapping(path = "izbrisi/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean izbrisiPolicu(@PathVariable(name = "id")Integer id){return policaService.izbrisiPolicu(id);}
 }

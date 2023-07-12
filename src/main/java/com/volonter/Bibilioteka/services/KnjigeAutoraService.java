@@ -6,12 +6,10 @@ import com.volonter.Bibilioteka.entities.Knjiga;
 import com.volonter.Bibilioteka.repositories.AutorRepo;
 import com.volonter.Bibilioteka.repositories.AutoriKnjigaRepo;
 import com.volonter.Bibilioteka.repositories.KnjigaRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class KnjigeAutoraService {
@@ -34,6 +32,7 @@ public class KnjigeAutoraService {
 
     public void zapisiAutoreKnjiga(Iterable<AutoriKnjiga> autoriKnjiga){autoriKnjigaRepo.saveAll(autoriKnjiga);}
 
+    @Transactional
     public void izbrisiVezu(Knjiga knjiga){
         autoriKnjigaRepo.deleteAutoriKnjigaByKnjigaAutora(knjiga);
     }

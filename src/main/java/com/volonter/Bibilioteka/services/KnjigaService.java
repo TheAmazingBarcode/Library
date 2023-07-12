@@ -82,13 +82,10 @@ public class KnjigaService {
     }
 
     public Knjiga izmeniKnjigu(Knjiga knjiga){
+        knjigaRepo.save(knjiga);
         knjigeAutoraService.izbrisiVezu(knjiga);
-            knjiga.getAutori().stream().forEach(autor -> autor.setAutoriKnjige
-                (autorRepo.findById(autor.getAutoriKnjige().getId()).get()));
-            knjiga.getAutori().stream().forEach(autor -> autor.setKnjigaAutora(knjiga));
-            knjigaRepo.save(knjiga);
-            knjigeAutoraService.zapisiAutoreKnjiga(knjiga.getAutori());
-        return knjigaRepo.findById(knjiga.getId()).get();
+        knjigeAutoraService.zapisiAutoreKnjiga(knjiga.getAutori());
+        return knjiga;
     }
 
     public List<Knjiga> knjigeNaPolici(Polica polica){

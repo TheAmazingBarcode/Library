@@ -44,9 +44,9 @@ public class PolicaService {
         return policaRepo.save(polica);
     }
 
-    public boolean izbrisiPolicu(Polica polica){
-        if(StreamSupport.stream(knjigaRepo.findKnjigasByPolica(polica).spliterator(),true).collect(Collectors.toList()).isEmpty()){
-            policaRepo.delete(polica);
+    public boolean izbrisiPolicu(Integer id){
+        if(StreamSupport.stream(knjigaRepo.findKnjigasByPolica(policaRepo.findById(id).get()).spliterator(),true).collect(Collectors.toList()).isEmpty()){
+            policaRepo.deleteById(id);
             return true;
         }
         else

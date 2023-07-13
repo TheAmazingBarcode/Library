@@ -26,7 +26,7 @@ public class PoliceControllers {
     @GetMapping(path = "pretraga/{naziv}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Polica> poNazivu(@PathVariable String naziv){return policaService.policePoNazivu(naziv);}
 
-    @GetMapping(path = "police/prostorija/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "prostorija/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Polica> policePoProstoriji(@PathVariable(name = "id") Integer id){return policaService.policePoProstoriji(id);}
 
     @PostMapping(path = "nova",consumes = MediaType.APPLICATION_JSON_VALUE)

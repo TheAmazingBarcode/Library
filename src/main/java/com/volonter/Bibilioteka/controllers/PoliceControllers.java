@@ -26,12 +26,15 @@ public class PoliceControllers {
     @GetMapping(path = "pretraga/{naziv}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Polica> poNazivu(@PathVariable String naziv){return policaService.policePoNazivu(naziv);}
 
+    @GetMapping(path = "police/prostorija/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Polica> policePoProstoriji(@PathVariable(name = "id") Integer id){return policaService.policePoProstoriji(id);}
+
     @PostMapping(path = "nova",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean kreirajNovu(@RequestBody Polica prostorija){return policaService.kreirajPolicu(prostorija);}
+    public boolean kreirajNovu(@RequestBody Polica polica){return policaService.kreirajPolicu(polica);}
 
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Polica izmeniPolicu(@RequestBody Polica polica){return policaService.izmeniPolicu(polica);}
 
-    @DeleteMapping(path = "izbrisi/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "izbrisi/{id}")
     public boolean izbrisiPolicu(@PathVariable(name = "id")Integer id){return policaService.izbrisiPolicu(id);}
 }

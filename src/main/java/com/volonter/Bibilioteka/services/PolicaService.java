@@ -19,6 +19,9 @@ public class PolicaService {
     @Autowired
     private KnjigaRepo knjigaRepo;
 
+    @Autowired
+    private ProstorijaRepo prostorijaRepo;
+
     public boolean kreirajPolicu(Polica polica){
         if(polica.getId() == null){
             policaRepo.save(polica);
@@ -26,6 +29,10 @@ public class PolicaService {
         }
         else
             return false;
+    }
+
+    public Polica policaPoID(Integer id){
+        return policaRepo.findById(id).get();
     }
 
     public List<Polica> svePolice(){
@@ -36,8 +43,8 @@ public class PolicaService {
         return policaRepo.findPolicasByNazivContains(naziv);
     }
 
-    public List<Polica> policePoProstoriji(Prostorija prostorija){
-        return policaRepo.findPolicasByProstorija(prostorija);
+    public List<Polica> policePoProstoriji(Integer id){
+        return policaRepo.findPolicasByProstorija(prostorijaRepo.findById(id).get());
     }
 
     public Polica izmeniPolicu(Polica polica){

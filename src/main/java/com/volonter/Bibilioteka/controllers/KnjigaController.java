@@ -36,8 +36,8 @@ public class KnjigaController {
     @GetMapping(path = "kategorija/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Knjiga> knjigePoKategoriji(@PathVariable("id")Integer id){return knjigaService.knjigePoKategoriji(id);}
 
-    @GetMapping(path = "polica",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Knjiga> knjigeNaPolici(@RequestBody Polica polica){return knjigaService.knjigeNaPolici(polica);}
+    @GetMapping(path = "polica/{id}")
+    public List<Knjiga> knjigeNaPolici(@PathVariable Integer id){return knjigaService.knjigeNaPolici(id);}
 
     @GetMapping(path = "izdavac/{id}")
     public List<Knjiga> knjigePoIzdavacu(@PathVariable("id") Integer izdavac){return knjigaService.knjigePoIzdavacu(izdavac);}

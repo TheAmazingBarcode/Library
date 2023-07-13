@@ -35,15 +35,15 @@ public class ProstorijaService {
         return prostorijaRepo.findProstorijasByNazivContains(naziv);
     }
 
-    public List<Polica> policeProstorije(Prostorija prostorija){
-        return policaService.policePoProstoriji(prostorija);
+    public List<Polica> policeProstorije(Integer id){
+        return policaService.policePoProstoriji(id);
     }
 
     public Prostorija izmeniProstoriju(Prostorija prostorija){return prostorijaRepo.save(prostorija);}
 
-    public boolean izbrisiProstoriju(Prostorija prostorija){
-        if(policaService.policePoProstoriji(prostorija).isEmpty()){
-            prostorijaRepo.delete(prostorija);
+    public boolean izbrisiProstoriju(Integer id){
+        if(policaService.policePoProstoriji(id).isEmpty()){
+            prostorijaRepo.deleteById(id);
             return true;
         }
         else

@@ -26,9 +26,9 @@ public class KorisnikService {
         return korisnici.save(korisnik);
     }
 
-    public boolean izbrisiKorisnika(Korisnik korisnik){
+    public boolean izbrisiKorisnika(Integer id){
       try{
-          korisnici.delete(korisnik);
+          korisnici.deleteById(id);
           return true;
       }
       catch (Exception e){

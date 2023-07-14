@@ -11,7 +11,7 @@ public class KorisnikService {
     private KorisnikRepo korisnici;
 
     public boolean kreirajKorisnika(Korisnik korisnik){
-      if(korisnik.getId() == null) {
+      if(korisnik.getId() == null && !korisnici.existsKorisnikByUsernameAndPassword(korisnik.getUsername(),korisnik.getPassword())) {
           korisnici.save(korisnik);
           return true;
       }
@@ -20,6 +20,9 @@ public class KorisnikService {
 
     public boolean ulogujKorisnika(Korisnik korisnik){
         return korisnici.existsKorisnikByUsernameAndPassword(korisnik.getUsername(), korisnik.getPassword());
+    }
+    public Korisnik nadjiPoUsername(String username){
+        return korisnici.findKorisnikByUsername(username);
     }
 
     public Korisnik izmeniKorisnika(Korisnik korisnik){
@@ -36,4 +39,7 @@ public class KorisnikService {
       }
     }
 
+    public Integer nadjiId(String username){
+        return korisnici.findKorisnikByUsername(username).getId();
+    }
 }

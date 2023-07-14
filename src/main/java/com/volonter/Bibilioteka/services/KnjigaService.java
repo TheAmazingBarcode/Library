@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,18 +47,23 @@ public class KnjigaService {
             knjiga.getAutori().stream().forEach(autor -> autor.setKnjigaAutora(knjiga));
 
             if(files!= null) {
-                String folder = "/home/mateja/Desktop/Development/BackEndDATA/BibliotekaIMG/";
-                String fileNames[] = Arrays.stream(files).map(MultipartFile::getOriginalFilename).toArray(String[]::new);
+                String separator = File.separator;
+                String folder = "src"+separator+"main"+separator+"resources"+separator+"static";
+                List<String> pathsHashed = new ArrayList<>();
 
                 Arrays.stream(files).forEach(file -> {
                     try {
-                        ImgUtil.sacuvajFile(file, folder);
+                        String[] fileNameSeparated = file.getOriginalFilename().split("[.]");
+                        String hashedName = UUID.randomUUID()+"."+fileNameSeparated[1];
+                        ImgUtil.sacuvajFile(file, folder,hashedName);
+                        pathsHashed.add(Paths.get(folder+separator+hashedName).toAbsolutePath().toString());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 });
-                knjiga.setFotografijaPrednja(folder + fileNames[0]);
-                knjiga.setFotografijaZadnja(folder + fileNames[1]);
+
+                knjiga.setFotografijaPrednja(pathsHashed.get(0));
+                knjiga.setFotografijaZadnja(pathsHashed.get(1));
             }
             knjigaRepo.save(knjiga);
             knjigeAutoraService.zapisiAutoreKnjiga(knjiga.getAutori());
@@ -81,6 +88,10 @@ public class KnjigaService {
         return knjigaRepo.findKnjigasByKategorija(kategorijaService.kategorijaPoId(id));
     }
 
+    public Knjiga knjigaPoID(Integer id){
+        return knjigaRepo.findById(id).get();
+    }
+
     public Knjiga izmeniKnjigu(Knjiga knjiga){
         knjigaRepo.save(knjiga);
         knjigeAutoraService.izbrisiVezu(knjiga);
@@ -99,7 +110,10 @@ public class KnjigaService {
     @Transactional
     public boolean izbrisiKnjigu(Integer id) {
         try {
-            knjigeAutoraService.izbrisiVezu(knjigaRepo.findById(id).get());
+            Knjiga knjiga = knjigaRepo.findById(id).get();
+            knjigeAutoraService.izbrisiVezu(knjiga);
+            ImgUtil.izbrisiFile(knjiga.getFotografijaPrednja());
+            ImgUtil.izbrisiFile(knjiga.getFotografijaZadnja());
             knjigaRepo.deleteById(id);
             return true;
         }

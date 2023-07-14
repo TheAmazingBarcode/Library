@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
+
 @RestController
 @CrossOrigin
 @RequestMapping(path = "korisnik")
@@ -19,9 +21,10 @@ public class KorisnikController {
     }
 
     @PutMapping(path = "uloguj",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean uloguj(@RequestBody Korisnik korisnik){
-        return korisnikService.ulogujKorisnika(korisnik);
-    }
+    public boolean uloguj(@RequestBody Korisnik korisnik){return korisnikService.ulogujKorisnika(korisnik);}
+
+    @GetMapping(path = "id/{username}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Integer nadjiId(@PathVariable(name = "username") String username){return korisnikService.nadjiId(username);}
 
     @PutMapping(path = "izmeni",consumes = MediaType.APPLICATION_JSON_VALUE)
     public Korisnik korisnik(@RequestBody Korisnik korisnik){return korisnikService.izmeniKorisnika(korisnik);}

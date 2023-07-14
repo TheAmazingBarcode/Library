@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface KorisnikRepo extends JpaRepository<Korisnik,Integer> {
     boolean existsKorisnikByUsernameAndPassword(String username,String password);
+
+    Korisnik findKorisnikByUsername(String username);
 }

@@ -56,7 +56,7 @@ public class KnjigaService {
                         String[] fileNameSeparated = file.getOriginalFilename().split("[.]");
                         String hashedName = UUID.randomUUID()+"."+fileNameSeparated[1];
                         ImgUtil.sacuvajFile(file, folder,hashedName);
-                        pathsHashed.add(Paths.get(folder+separator+hashedName).toAbsolutePath().toString());
+                        pathsHashed.add(Paths.get(folder+separator+hashedName).toString());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

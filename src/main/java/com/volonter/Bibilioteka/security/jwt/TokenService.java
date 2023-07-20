@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.Date;
 
 @Service
@@ -24,7 +25,7 @@ public class TokenService {
     }
 
     public String getUsername(String token){
-        return Jwts.parser().setSigningKey(tokenProperties.getSignKey()).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(tokenProperties.getSignKey().trim()).parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateToken(String token){

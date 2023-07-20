@@ -16,12 +16,12 @@ public class KorisnikController {
     private KorisnikService korisnikService;
 
     @PostMapping(path = "registruj",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean registruj(@RequestBody Korisnik korisnik){
+    public String registruj(@RequestBody Korisnik korisnik) throws Exception {
         return korisnikService.kreirajKorisnika(korisnik);
     }
 
     @PutMapping(path = "uloguj",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean uloguj(@RequestBody Korisnik korisnik){return korisnikService.ulogujKorisnika(korisnik);}
+    public String uloguj(@RequestBody Korisnik korisnik){return korisnikService.ulogujKorisnika(korisnik);}
 
     @GetMapping(path = "id/{username}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Integer nadjiId(@PathVariable(name = "username") String username){return korisnikService.nadjiId(username);}

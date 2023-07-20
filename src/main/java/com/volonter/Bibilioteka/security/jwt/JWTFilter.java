@@ -28,23 +28,21 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Optional<String> token = Optional.of(request.getHeader("Authorization").substring(7));
-
-        token.ifPresent(content -> {
-            UserDetails user = userService.loadUserByUsername(tokenService.getUsername(content));
-
+        String header = request.getHeader("Authorization");
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring(7);
+            UserDetails user = userService.loadUserByUsername(tokenService.getUsername(token));
             try {
-                if (tokenService.validateToken(content)) {
+                if (tokenService.validateToken(token)) {
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
-            }
-            catch (ExpiredJwtException e){
+            } catch (ExpiredJwtException e) {
                 //???
             }
-        });
 
-        filterChain.doFilter(request,response);
+        }
+        filterChain.doFilter(request, response);
     }
 }

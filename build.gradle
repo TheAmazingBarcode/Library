@@ -19,10 +19,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	implementation ('org.springframework.boot:spring-boot-starter-log4j2') {
+		exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j2-impl'
+	}
+	implementation("org.springframework.boot:spring-boot-starter-web") {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

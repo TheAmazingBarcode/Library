@@ -3,10 +3,11 @@ package com.volonter.Bibilioteka.services;
 import com.volonter.Bibilioteka.entities.Korisnik;
 import com.volonter.Bibilioteka.repositories.KorisnikRepo;
 import com.volonter.Bibilioteka.security.UserServiceImpl;
+import com.volonter.Bibilioteka.security.encryption.Decryptor;
+import com.volonter.Bibilioteka.security.encryption.Encryptor;
+import com.volonter.Bibilioteka.security.jwt.TokenDTO;
 import com.volonter.Bibilioteka.security.jwt.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -21,22 +22,30 @@ public class KorisnikService {
     @Autowired
     private UserServiceImpl securityUser;
 
-    public String kreirajKorisnika(Korisnik korisnik) throws Exception {
-      if(korisnik.getId() == null && !korisnici.existsKorisnikByUsernameAndPassword(korisnik.getUsername(),korisnik.getPassword())) {
+    @Autowired
+    private Decryptor decryptor;
+
+    @Autowired
+    private Encryptor encryptor;
+
+    public TokenDTO kreirajKorisnika(Korisnik korisnik) throws Exception {
+      if(korisnik.getId() == null && !korisnici.existsKorisnikByUsernameAndPassword(decryptor.decrypt(korisnik.getUsername()),decryptor.decrypt(korisnik.getPassword()))) {
+          korisnik.setUsername(encryptor.encrypt(korisnik.getUsername()));
+          korisnik.setPassword(encryptor.encrypt(korisnik.getPassword()));
           korisnici.save(korisnik);
-          return tokenService.generateToken(securityUser.loadUserByUsername(korisnik.getUsername()));
+          return new TokenDTO(tokenService.generateToken(securityUser.loadUserByUsername(korisnik.getUsername())));
       }
         throw new Exception("Nepravilan format");
     }
 
-    public String ulogujKorisnika(Korisnik korisnik){
-        if(korisnici.existsKorisnikByUsernameAndPassword(korisnik.getUsername(), korisnik.getPassword())){
-            return tokenService.generateToken(securityUser.loadUserByUsername(korisnik.getUsername()));
+    public TokenDTO ulogujKorisnika(Korisnik korisnik){
+        if(korisnici.existsKorisnikByUsernameAndPassword(encryptor.encrypt(korisnik.getUsername()), encryptor.encrypt(korisnik.getPassword()))){
+            return new TokenDTO(tokenService.generateToken(securityUser.loadUserByUsername(encryptor.encrypt(korisnik.getUsername()))));
         }
         throw new UsernameNotFoundException("Ne postoji korisnik");
     }
     public Korisnik nadjiPoUsername(String username){
-        return korisnici.findKorisnikByUsername(username);
+        return korisnici.findKorisnikByUsername(encryptor.encrypt(username));
     }
 
     public Korisnik izmeniKorisnika(Korisnik korisnik){

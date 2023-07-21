@@ -18,6 +18,9 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
 
@@ -35,16 +38,12 @@ public class SecurityConfig {
     SecurityFilterChain filter(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("knjiga/sve").permitAll()
-                        .requestMatchers("izdavac/svi").permitAll()
-                        .requestMatchers("korisnik/registruj").permitAll()
-                        .requestMatchers("korisnik/uloguj").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("knjiga/sve","izdavac/svi","kategorija/sve","autor/svi","police/sve","prostorija/sve","korisnik/uloguj","korisnik/registruj","token/verify","slike/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults()).build();
     }
-
 
     @Bean
     PasswordEncoder encoder(){

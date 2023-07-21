@@ -1,6 +1,7 @@
 package com.volonter.Bibilioteka.controllers;
 
 import com.volonter.Bibilioteka.entities.Korisnik;
+import com.volonter.Bibilioteka.security.jwt.TokenDTO;
 import com.volonter.Bibilioteka.services.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,12 +17,12 @@ public class KorisnikController {
     private KorisnikService korisnikService;
 
     @PostMapping(path = "registruj",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String registruj(@RequestBody Korisnik korisnik) throws Exception {
+    public TokenDTO registruj(@RequestBody Korisnik korisnik) throws Exception {
         return korisnikService.kreirajKorisnika(korisnik);
     }
 
     @PutMapping(path = "uloguj",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String uloguj(@RequestBody Korisnik korisnik){return korisnikService.ulogujKorisnika(korisnik);}
+    public TokenDTO uloguj(@RequestBody Korisnik korisnik){return korisnikService.ulogujKorisnika(korisnik);}
 
     @GetMapping(path = "id/{username}",produces = MediaType.APPLICATION_JSON_VALUE)
     public Integer nadjiId(@PathVariable(name = "username") String username){return korisnikService.nadjiId(username);}

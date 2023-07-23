@@ -20,6 +20,8 @@ public class ImgUtil {
     }
 
     public static void izbrisiFile(String path) throws IOException {
-        Files.deleteIfExists(Paths.get(path).toAbsolutePath());
+        Path path1 = Paths.get(path);
+        System.out.println(path1.toAbsolutePath());
+        Files.deleteIfExists(path1.toAbsolutePath());
     }
 }

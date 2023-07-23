@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RequestMapping(path = "knjiga")
 public class KnjigaController {
     @Autowired
@@ -55,5 +55,5 @@ public class KnjigaController {
     public Knjiga izmeniKnjigu(@RequestBody Knjiga knjiga){return knjigaService.izmeniKnjigu(knjiga);}
 
     @DeleteMapping(path = "izbrisi/{id}")
-    public boolean izbrisiKnjigu(@PathVariable Integer id){return knjigaService.izbrisiKnjigu(id);}
+    public boolean izbrisiKnjigu(@PathVariable Integer id) {return knjigaService.izbrisiKnjigu(id);}
 }

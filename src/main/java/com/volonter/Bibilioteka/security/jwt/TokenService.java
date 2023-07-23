@@ -25,10 +25,12 @@ public class TokenService {
     }
 
     public String getUsername(String token){
+//        System.out.println("GETTING USERNAME FROM TOKEN - "+token);
         return Jwts.parser().setSigningKey(tokenProperties.getSignKey().trim()).parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateToken(String token){
+//        System.out.println("VALIDATING TOKEN - "+token);
         try{
             Jwts.parser().setSigningKey(tokenProperties.getSignKey()).parseClaimsJws(token);
             return true;

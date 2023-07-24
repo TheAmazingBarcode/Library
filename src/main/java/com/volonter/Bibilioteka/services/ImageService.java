@@ -14,7 +14,6 @@ public class ImageService {
 
     public Resource nadjiSliku(String path){
         FileSystemResource resource = new FileSystemResource(path);
-        System.out.println(resource.exists());
         return resource;
     }
 

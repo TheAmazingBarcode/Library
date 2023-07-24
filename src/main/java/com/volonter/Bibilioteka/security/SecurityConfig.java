@@ -5,6 +5,7 @@ import com.volonter.Bibilioteka.security.jwt.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -38,7 +39,8 @@ public class SecurityConfig {
     SecurityFilterChain filter(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("knjiga/sve","izdavac/svi","kategorija/sve","autor/svi","police/sve","prostorija/sve","korisnik/uloguj","korisnik/registruj","token/verify","slike/**").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("knjiga/sve","knjiga/izdavac/**","knjiga/polica/**","knjiga/kategorija/**","knjiga/autor/**","izdavac/svi","kategorija/sve","autor/svi","police/sve","prostorija/sve","korisnik/uloguj","korisnik/registruj","token/verify/**","slike/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

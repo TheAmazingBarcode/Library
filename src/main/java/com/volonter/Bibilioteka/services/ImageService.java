@@ -7,12 +7,23 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+
 @Service
 public class ImageService {
     @Autowired
     private KnjigaRepo repo;
 
     public Resource nadjiSliku(String path){
+
+        if(!System.getProperty("os.name").toLowerCase().contains("win") && path.contains("\\")){
+            path = path.replaceAll("\\\\","/");
+        }
+
+        if(!System.getProperty("os.name").toLowerCase().contains("linux") && path.contains("/")){
+            path = path.replaceAll("/","\\\\");
+        }
+
         FileSystemResource resource = new FileSystemResource(path);
         return resource;
     }

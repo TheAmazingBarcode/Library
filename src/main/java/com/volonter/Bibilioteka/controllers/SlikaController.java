@@ -32,6 +32,9 @@ public class SlikaController {
         }
 
         Resource slika = imageService.nadjiSliku(putanja);
+
+        System.out.println(slika.getFilename());
+
         if(slika.exists()){
             return ResponseEntity.ok()
                     .contentType(imageService.tipSlike(putanja))

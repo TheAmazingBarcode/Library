@@ -1,6 +1,7 @@
 package com.volonter.Bibilioteka.security.jwt;
 
 import com.volonter.Bibilioteka.security.UserServiceImpl;
+import com.volonter.Bibilioteka.security.encryption.Encryptor;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

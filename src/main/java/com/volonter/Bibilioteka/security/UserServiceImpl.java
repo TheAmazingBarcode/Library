@@ -2,6 +2,7 @@ package com.volonter.Bibilioteka.security;
 
 import com.volonter.Bibilioteka.entities.Korisnik;
 import com.volonter.Bibilioteka.repositories.KorisnikRepo;
+import com.volonter.Bibilioteka.security.encryption.Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,10 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private KorisnikRepo repo;
+
+    @Autowired
+    private Encryptor encryptor;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Korisnik korisnik = repo.findKorisnikByUsername(username);

@@ -13,7 +13,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -25,8 +24,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -40,13 +37,12 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filter(HttpSecurity http) throws Exception {
-
-
         return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth ->auth.requestMatchers(HttpMethod.OPTIONS).permitAll())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("knjiga/sve","knjiga/izdavac/**","knjiga/polica/**","knjiga/kategorija/**","knjiga/autor/**","izdavac/svi","kategorija/sve","autor/svi","police/sve","prostorija/sve","korisnik/uloguj","korisnik/registruj","token/verify","slike/**").permitAll()
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("knjiga/sve","knjiga/izdavac/**","knjiga/polica/**","knjiga/kategorija/**","knjiga/autor/**","izdavac/svi","kategorija/sve","autor/svi","police/sve","prostorija/sve","korisnik/uloguj","korisnik/registruj","token/verify/**","slike/**").permitAll()
                         .anyRequest().authenticated())
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults()).build();
     }

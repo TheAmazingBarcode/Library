@@ -1,6 +1,7 @@
 package com.volonter.Bibilioteka.controllers;
 
 import com.volonter.Bibilioteka.security.UserServiceImpl;
+import com.volonter.Bibilioteka.security.encryption.Encryptor;
 import com.volonter.Bibilioteka.security.jwt.TokenDTO;
 import com.volonter.Bibilioteka.security.jwt.TokenService;
 import com.volonter.Bibilioteka.services.KorisnikService;
@@ -17,11 +18,14 @@ public class TokenController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private Encryptor encryptor;
+
     @PutMapping(path = "verify/{username}")
     public TokenDTO token(@RequestBody TokenDTO token,@PathVariable("username")String username){
         if(tokenService.validateToken(token.getValue())){
             return new TokenDTO(token.getValue());
         }
-        return new TokenDTO(tokenService.generateToken(userService.loadUserByUsername(username)));
+        return new TokenDTO(tokenService.generateToken(userService.loadUserByUsername(encryptor.encrypt(username))));
     }
 }
